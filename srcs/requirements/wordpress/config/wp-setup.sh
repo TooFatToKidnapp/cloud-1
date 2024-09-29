@@ -1,4 +1,5 @@
 #!/bin/sh
+set -ex
 
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
@@ -27,15 +28,15 @@ sleep 3;
 wp user create ${WP_USER} ${WP_USER_EMAIL} --user_pass=${WP_USER_PASSWORD} --path=/var/www/http/wp --allow-root
 
 
-wp plugin install redis-cache --activate --allow-root
+# wp plugin install redis-cache --activate --allow-root
 
-wp plugin update --all --allow-root
+# wp plugin update --all --allow-root
 
-wp redis enable --allow-root
+# wp redis enable --allow-root
 
-sed -i '75s/.*/define( 'WP_REDIS_HOST', 'redis' );/' /var/www/http/wp/wp-config.php
-sed -i '76s/.*/define( 'WP_REDIS_PORT', 6379 );/' /var/www/http/wp/wp-config.php
-sed -i '77s/.*/define( 'WP_CACHE', true );/' /var/www/http/wp/wp-config.php
+# sed -i '75s/.*/define( 'WP_REDIS_HOST', 'redis' );/' /var/www/http/wp/wp-config.php
+# sed -i '76s/.*/define( 'WP_REDIS_PORT', 6379 );/' /var/www/http/wp/wp-config.php
+# sed -i '77s/.*/define( 'WP_CACHE', true );/' /var/www/http/wp/wp-config.php
 
 /usr/sbin/php-fpm7.3 -F
 

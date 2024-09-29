@@ -1,4 +1,5 @@
 #!/bin/sh
+set -ex
 
 # replace specific lines in the mariadb config file
 sed -i '19s/.*/port                    = 3306/' /etc/mysql/mariadb.conf.d/50-server.cnf
@@ -17,8 +18,7 @@ mysql --user=root --execute "USE '${MYSQL_DATABASE}'; GRANT ALL PRIVILEGES ON * 
 mysql --user=root --execute "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 mysql --user=root -p ${MYSQL_ROOT_PASSWORD} --execute "FLUSH PRIVILEGES;"
 
-# service mysqld stop
-kill $(cat /var/run/mysqld/mysqld.pid)
+# service mysqld stopkill $(cat /var/run/mysqld/mysqld.pid)
 sleep 5;
 
 fi
