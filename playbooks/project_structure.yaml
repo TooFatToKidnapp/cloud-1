@@ -3,7 +3,7 @@
   hosts: all
   vars:
     ansible_user: vagrant
-  # remote_user: "{{ ansible_user }}"
+  remote_user: "{{ ansible_user }}"
   become: true
   tasks:
     - name: Create Project on remote server

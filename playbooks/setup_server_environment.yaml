@@ -14,6 +14,7 @@
           - curl
           - gnupg
           - lsb-release
+          - make
         state: present
 
     - name: Add Docker's official GPG key
@@ -71,3 +72,7 @@
     - name: Print Docker Compose version
       debug:
         msg: "{{ docker_compose_version_output.stdout }}"
+
+
+# Error response from daemon: failed to populate volume: error while mounting volume '/var/lib/docker/volumes/mariadb_volume/_data': failed to mount local
+# volume: mount /home/vagrant/inseption/db:/var/lib/docker/volumes/mariadb_volume/_data, flags: 0x1000: no such file or directory

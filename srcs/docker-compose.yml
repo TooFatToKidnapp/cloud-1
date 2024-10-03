@@ -43,19 +43,19 @@ services:
 
 volumes:
   wordpress_volume:
-    name: wordpress_volume
+    name: wp
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/vagrant/inseption/wp
+      device: /home/vagrant/inception/data/wp
   mariadb_volume:
-    name: mariadb_volume
+    name: db
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/vagrant/inseption/db
+      device: /home/vagrant/inception/data/db
 
 
 networks:

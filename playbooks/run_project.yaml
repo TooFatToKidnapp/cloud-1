@@ -1,0 +1,13 @@
+---
+- name: Run The Project
+  hosts: all
+  vars:
+    ansible_user: vagrant
+  remote_user: "{{ ansible_user }}"
+  become: true
+  tasks:
+    - name: Run make
+      become: true
+      command: make
+      args:
+        chdir: /home/{{ ansible_user }}/inception

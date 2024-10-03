@@ -3,7 +3,7 @@ all : run
 run :
 # @-mkdir -p ~/data/mariadb_volume
 # @-mkdir ~/data/wordpress_volume
-	@docker-compose  -f  ./docker-compose.yml up --build
+	@docker-compose  -f  ./docker-compose.yml up --build -d
 
 
 clean:
