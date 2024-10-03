@@ -1,8 +1,8 @@
 all : run
 
 run :
-	@-mkdir -p ~/data/mariadb_volume
-	@-mkdir ~/data/wordpress_volume
+# @-mkdir -p ~/data/mariadb_volume
+# @-mkdir ~/data/wordpress_volume
 	@docker-compose  -f  ./docker-compose.yml up --build
 
 
@@ -10,7 +10,7 @@ clean:
 	@docker-compose -f ./docker-compose.yml down --remove-orphans
 
 fclean: clean
-	@rm -fr ~/data
+# @rm -fr ~/data
 	@-docker volume rm $$(docker volume ls -q)
 	@-docker network rm $$(docker network ls -q)
 

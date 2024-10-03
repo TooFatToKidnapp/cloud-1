@@ -1,0 +1,36 @@
+---
+- name: Remote Project Structure
+  hosts: all
+  vars:
+    ansible_user: vagrant
+  # remote_user: "{{ ansible_user }}"
+  become: true
+  tasks:
+    - name: Create Project on remote server
+      file:
+        path: /home/{{ ansible_user }}/inception
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        recurse: yes
+
+    - name: Copy The Project To Remote Server
+      copy:
+        src: ../srcs/
+        dest: /home/{{ ansible_user }}/inception
+
+    - name: Add WordPress Volume Data
+      file:
+        path: /home/{{ ansible_user }}/inception/data/wp
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Add Mariadb Volume Data
+      file:
+        path: /home/{{ ansible_user }}/inception/data/db
+        state: directory
+        mode: '0755'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
