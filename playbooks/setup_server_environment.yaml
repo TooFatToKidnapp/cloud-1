@@ -1,0 +1,73 @@
+---
+- name: Install and configure Docker on Debian
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update the apt package index
+      apt:
+        update_cache: yes
+
+    - name: Install required packages for Docker installation
+      apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Set up the Docker repository
+      ansible.builtin.shell: |
+        echo "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list
+
+    - name: Update apt package index with Docker packages
+      apt:
+        update_cache: yes
+
+    - name: Install Docker Engine, CLI, and containerd
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Enable Docker service to start on boot
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Add the current user to the docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+        state: present
+
+    - name: Verify Docker installation
+      command: docker --version
+      register: docker_version_output
+
+    - name: Print Docker version
+      debug:
+        msg: "{{ docker_version_output.stdout }}"
+
+    - name: Install Docker Compose
+      ansible.builtin.get_url:
+        url: https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Verify Docker Compose installation
+      command: docker-compose --version
+      register: docker_compose_version_output
+
+    - name: Print Docker Compose version
+      debug:
+        msg: "{{ docker_compose_version_output.stdout }}"
