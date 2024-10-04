@@ -1,0 +1,10 @@
+---
+  - name: Setup Remote Server
+    import_playbook: ./playbooks/setup_server_environment.yaml
+    tags: setup
+  - name: Project File Structure
+    import_playbook: ./playbooks/project_structure.yaml
+    tags: project_structure
+  - name: Run Project In Remote Host
+    import_playbook: ./playbooks/run_project.yaml
+    tags: run

@@ -1,8 +1,6 @@
 ---
 - name: Remote Project Structure
   hosts: all
-  vars:
-    ansible_user: vagrant
   remote_user: "{{ ansible_user }}"
   become: true
   tasks:
@@ -34,3 +32,15 @@
         mode: '0755'
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"
+
+    - name: Edit WP_URL ENV value
+      lineinfile:
+        path: /home/{{ ansible_user }}/inception/.env
+        regexp: '^WP_URL='
+        line: "WP_URL={{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}"
+
+    - name: Edit WORDPRESS_HOST_NAME ENV value
+      lineinfile:
+        path: /home/{{ ansible_user }}/inception/.env
+        regexp: '^WORDPRESS_HOST_NAME='
+        line: "WORDPRESS_HOST_NAME={{ hostvars[inventory_hostname]['ansible_eth1']['ipv4']['address'] }}"

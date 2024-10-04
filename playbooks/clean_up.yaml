@@ -1,8 +1,6 @@
 ---
 - name: Remove and clean in remote host
   hosts: all
-  vars:
-    ansible_user: vagrant
   remote_user: "{{ ansible_user }}"
   become: true
   tasks:

@@ -1,5 +1,4 @@
 #!/bin/sh
-set -ex
 
 # replace specific lines in the mariadb config file
 sed -i '19s/.*/port                    = 3306/' /etc/mysql/mariadb.conf.d/50-server.cnf
